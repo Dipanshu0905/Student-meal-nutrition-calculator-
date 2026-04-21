@@ -108,7 +108,14 @@ http://127.0.0.1:5000/
 
 ## 📸 Screenshots
 
-*Add your project screenshots here*
+### 🍽️ Meal Logger
+![Meal Logger](screenshot1.png)
+
+### 📊 Daily Summary
+![Summary](screenshot2.png)
+
+### 📈 Dashboard
+![Dashboard](screenshot3.png)
 
 ---
 
