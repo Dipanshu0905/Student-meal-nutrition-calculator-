@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrition Tracker | NutriTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="hero">
+  <div class="navbar">
+    <div class="page-shell flex flex-wrap items-center justify-between gap-4 px-4 py-4">
+      <a href="index.html" class="brand-pill font-semibold">NutriTrack</a>
+      <div class="flex flex-wrap items-center gap-3 text-sm">
+        <a href="calculator.html" class="chip active">Tracker</a>
+        <a href="dashboard.html" class="chip">Dashboard</a>
+        <a href="awareness.html" class="chip">Awareness</a>
+        <a href="logout.html" class="chip">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="page-shell section-spacer">
+    <section class="calculator-grid">
+      <div class="space-y-5">
+        <div class="card p-6 section">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p class="eyebrow">Meal Logger</p>
+              <h1 class="text-3xl font-bold mt-2">Add a meal and keep the day organized.</h1>
+            </div>
+            <span class="status-pill text-sm" id="currentDateLabel"></span>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <span class="chip text-sm" id="apiStatus">Checking nutrition source...</span>
+            <span class="chip text-sm hidden" id="foodSourceHint"></span>
+          </div>
+
+          <hr class="divider">
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <label class="inline-field">
+              <span class="font-medium">Food name</span>
+              <input id="foodName" type="text" list="foodSuggestions" placeholder="Example: Paneer sandwich">
+            </label>
+
+            <label class="inline-field">
+              <span class="font-medium">Quantity in grams</span>
+              <input id="quantity" type="number" min="1" placeholder="Example: 150">
+            </label>
+
+            <label class="inline-field">
+              <span class="font-medium">Meal type</span>
+              <select id="mealType">
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Snack">Snack</option>
+              </select>
+            </label>
+
+            <label class="inline-field">
+              <span class="font-medium">Optional note</span>
+              <input id="mealNote" type="text" placeholder="Homemade, post-workout, with tea...">
+            </label>
+          </div>
+
+          <div class="mt-5 flex flex-wrap gap-3">
+            <button onclick="handleFoodInput()" class="btn">Add Food</button>
+            <button onclick="applyPreset('protein')" class="btn-ghost">Need protein idea</button>
+            <button onclick="applyPreset('balanced')" class="btn-ghost">Need balanced meal idea</button>
+          </div>
+
+          <div id="loader" class="hidden text-center mt-4">
+            <div class="loader"></div>
+            <p class="micro-copy mt-2">Fetching nutrition data...</p>
+          </div>
+        </div>
+
+        <div class="card p-6 section">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p class="eyebrow">Today's Entries</p>
+              <h2 class="text-2xl font-bold mt-2">Meal history</h2>
+            </div>
+            <button onclick="resetData()" class="btn-danger">Clear Today</button>
+          </div>
+          <hr class="divider">
+          <div id="list" class="list-stack"></div>
+        </div>
+      </div>
+
+      <div class="space-y-5">
+        <div class="card p-6 section">
+          <p class="eyebrow">Daily Snapshot</p>
+          <h2 class="text-2xl font-bold mt-2">Summary</h2>
+          <hr class="divider">
+          <div id="result"></div>
+          <div class="mt-5 space-y-4 meter-grid">
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span>Calories progress</span>
+                <span id="calorieProgressLabel">0%</span>
+              </div>
+              <div class="progress-shell">
+                <div id="progressBar" class="progress-bar"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span>Protein goal</span>
+                <span id="proteinProgressLabel">0%</span>
+              </div>
+              <div class="progress-shell">
+                <div id="proteinBar" class="progress-bar" style="background:linear-gradient(135deg, #2d7b6f, #45a191)"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-2">
+                <span>Carb goal</span>
+                <span id="carbProgressLabel">0%</span>
+              </div>
+              <div class="progress-shell">
+                <div id="carbBar" class="progress-bar" style="background:linear-gradient(135deg, #f0b44d, #d88d2e)"></div>
+              </div>
+            </div>
+          </div>
+          <div id="aiSuggestion" class="mt-5 p-4 rounded-2xl" style="background:rgba(255,255,255,0.55); border:1px solid rgba(77,52,40,0.08);"></div>
+        </div>
+
+        <div class="card p-6 section">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p class="eyebrow">Hydration</p>
+              <h2 class="text-2xl font-bold mt-2">Water tracker</h2>
+            </div>
+            <span class="status-pill text-sm" id="waterStatus">0 ml</span>
+          </div>
+          <hr class="divider">
+          <div class="flex flex-wrap gap-3">
+            <button onclick="addWater(250)" class="btn-ghost">+ 250 ml</button>
+            <button onclick="addWater(500)" class="btn-ghost">+ 500 ml</button>
+            <button onclick="resetWater()" class="btn-danger">Reset water</button>
+          </div>
+          <div class="mt-4">
+            <div class="flex justify-between text-sm mb-2">
+              <span>Hydration goal</span>
+              <span id="waterProgressLabel">0%</span>
+            </div>
+            <div class="progress-shell">
+              <div id="waterBar" class="progress-bar" style="background:linear-gradient(135deg, #60a5fa, #2d7b6f)"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-6 section">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p class="eyebrow">Favorites</p>
+              <h2 class="text-2xl font-bold mt-2">Quick-add foods</h2>
+            </div>
+            <button onclick="saveCurrentAsFavorite()" class="btn-secondary">Save current food</button>
+          </div>
+          <hr class="divider">
+          <div id="favoritesList" class="list-stack"></div>
+        </div>
+
+        <div class="card p-6 section">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p class="eyebrow">Your Goals</p>
+              <h2 class="text-2xl font-bold mt-2">Edit daily targets</h2>
+            </div>
+            <button onclick="saveGoals()" class="btn-secondary">Save Goals</button>
+          </div>
+          <hr class="divider">
+          <div class="grid sm:grid-cols-3 gap-4">
+            <label class="inline-field">
+              <span class="font-medium">Calories</span>
+              <input id="goalCalories" type="number" min="800" step="50">
+            </label>
+            <label class="inline-field">
+              <span class="font-medium">Protein (g)</span>
+              <input id="goalProtein" type="number" min="20" step="5">
+            </label>
+            <label class="inline-field">
+              <span class="font-medium">Carbs (g)</span>
+              <input id="goalCarbs" type="number" min="50" step="5">
+            </label>
+          </div>
+          <p class="micro-copy mt-4">Goals are stored in your browser and used across the tracker and dashboard.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <datalist id="foodSuggestions"></datalist>
+  <script src="script.js"></script>
+</body>
+</html>

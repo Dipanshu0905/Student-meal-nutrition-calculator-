@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriTrack | Smarter Daily Nutrition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="hero">
+  <div class="navbar">
+    <div class="page-shell flex flex-wrap items-center justify-between gap-4 px-4 py-4">
+      <a href="index.html" class="brand-pill font-semibold">NutriTrack</a>
+      <div class="flex flex-wrap items-center gap-3 text-sm">
+        <a href="calculator.html" class="chip">Tracker</a>
+        <a href="dashboard.html" class="chip">Dashboard</a>
+        <a href="awareness.html" class="chip">Awareness</a>
+        <a href="login.html" class="chip" id="authLink">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="page-shell section-spacer">
+    <section class="hero-grid">
+      <div class="section">
+        <p class="eyebrow">Daily Nutrition Companion</p>
+        <h1 class="headline">Track meals, review your day, and improve your habits with clear guidance.</h1>
+        <p class="subheadline mt-5 max-w-2xl">
+          NutriTrack is now a fuller student-friendly nutrition project: log food quickly, save history,
+          set goals, and understand your nutrition instead of staring at one total number.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="calculator.html" class="btn">Start Tracking</a>
+          <a href="dashboard.html" class="btn-ghost">View Dashboard</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <p class="muted text-sm">Meal tracking</p>
+            <p class="text-xl font-bold mt-2">History + totals</p>
+            <p class="micro-copy mt-1">Every added food is stored with meal type and timestamp.</p>
+          </div>
+          <div class="hero-stat">
+            <p class="muted text-sm">Goal system</p>
+            <p class="text-xl font-bold mt-2">Custom targets</p>
+            <p class="micro-copy mt-1">Calories, protein, and carbs are measured against your goals.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card section">
+        <div class="chip">Today at a glance</div>
+        <h2 class="text-2xl font-bold mt-4">A project that feels complete again.</h2>
+        <p class="subheadline mt-3">
+          Cleaner design, better storage, a real dashboard, safer backend settings, and a more useful learning page.
+        </p>
+        <div class="list-stack mt-5">
+          <div class="history-item">
+            <div>
+              <strong>Quick add workflow</strong>
+              <p class="meta mt-1">Food name, grams, meal type, and optional notes in one clean form.</p>
+            </div>
+          </div>
+          <div class="history-item">
+            <div>
+              <strong>Dashboard insights</strong>
+              <p class="meta mt-1">Macro charts, progress bars, target comparison, and recent meals.</p>
+            </div>
+          </div>
+          <div class="history-item">
+            <div>
+              <strong>Practical education</strong>
+              <p class="meta mt-1">Awareness page for meal quality, hydration, and realistic food swaps.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-5 mt-10">
+      <article class="feature-card section">
+        <p class="eyebrow">Fast</p>
+        <h3 class="mt-2 text-xl">Smarter meal logging</h3>
+        <p class="mt-3">The tracker stores each item instead of only keeping a single number that disappears contextually.</p>
+      </article>
+      <article class="feature-card section">
+        <p class="eyebrow">Insightful</p>
+        <h3 class="mt-2 text-xl">Useful dashboard analysis</h3>
+        <p class="mt-3">You can now review goal completion, meal balance, recent activity, and progress quality at a glance.</p>
+      </article>
+      <article class="feature-card section">
+        <p class="eyebrow">Reliable</p>
+        <h3 class="mt-2 text-xl">Cleaner backend behavior</h3>
+        <p class="mt-3">The API key is no longer hardcoded, fallback estimates are clearer, and errors are handled more safely.</p>
+      </article>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

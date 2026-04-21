@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | NutriTrack</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="hero">
+  <div class="navbar">
+    <div class="page-shell flex flex-wrap items-center justify-between gap-4 px-4 py-4">
+      <a href="index.html" class="brand-pill font-semibold">NutriTrack</a>
+      <div class="flex flex-wrap items-center gap-3 text-sm">
+        <a href="calculator.html" class="chip">Tracker</a>
+        <a href="dashboard.html" class="chip active">Dashboard</a>
+        <a href="awareness.html" class="chip">Awareness</a>
+        <a href="logout.html" class="chip">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="page-shell section-spacer">
+    <section class="flex flex-wrap items-end justify-between gap-4 mb-6">
+      <div>
+        <p class="eyebrow">Daily Review</p>
+        <h1 class="text-3xl font-bold mt-2">Nutrition dashboard</h1>
+        <p class="subheadline mt-3 max-w-2xl">Review totals, recent meals, goal completion, a streak score, and a weekly calorie trend.</p>
+      </div>
+      <div class="status-pill text-sm" id="dashboardDateLabel"></div>
+    </section>
+
+    <section class="dashboard-grid">
+      <article class="stat-card dashboard-span-4 section">
+        <p class="muted text-sm">Calories</p>
+        <h2 id="cal" class="stat-number mt-2">0</h2>
+        <p class="micro-copy mt-2" id="calMeta">0% of goal reached</p>
+      </article>
+
+      <article class="stat-card dashboard-span-4 section">
+        <p class="muted text-sm">Protein</p>
+        <h2 id="pro" class="stat-number mt-2">0</h2>
+        <p class="micro-copy mt-2" id="proMeta">0% of goal reached</p>
+      </article>
+
+      <article class="stat-card dashboard-span-4 section">
+        <p class="muted text-sm">Carbs</p>
+        <h2 id="carb" class="stat-number mt-2">0</h2>
+        <p class="micro-copy mt-2" id="carbMeta">0% of goal reached</p>
+      </article>
+
+      <article class="card p-6 dashboard-span-8 section">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <div>
+            <p class="eyebrow">Targets</p>
+            <h2 class="text-2xl font-bold mt-2">Progress against goals</h2>
+          </div>
+          <a href="calculator.html" class="btn-ghost">Adjust in tracker</a>
+        </div>
+        <hr class="divider">
+        <div class="meter-grid">
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span>Calories</span>
+              <span id="dashboardCalorieLabel">0 / 0</span>
+            </div>
+            <div class="progress-shell"><div id="dashboardCalorieBar" class="progress-bar"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span>Protein</span>
+              <span id="dashboardProteinLabel">0 / 0</span>
+            </div>
+            <div class="progress-shell"><div id="dashboardProteinBar" class="progress-bar" style="background:linear-gradient(135deg, #2d7b6f, #45a191)"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span>Carbs</span>
+              <span id="dashboardCarbLabel">0 / 0</span>
+            </div>
+            <div class="progress-shell"><div id="dashboardCarbBar" class="progress-bar" style="background:linear-gradient(135deg, #f0b44d, #d88d2e)"></div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card p-6 dashboard-span-4 section">
+        <p class="eyebrow">Balance Score</p>
+        <h2 id="balanceScore" class="text-4xl font-bold mt-3">0</h2>
+        <p id="balanceSummary" class="subheadline mt-3">Add meals to see how balanced the day looks.</p>
+        <div class="mt-5 pt-4" style="border-top:1px solid rgba(77,52,40,0.08);">
+          <p class="muted text-sm">Current streak</p>
+          <div class="text-2xl font-bold mt-2" id="streakValue">0 days</div>
+        </div>
+      </article>
+
+      <article class="card p-6 dashboard-span-4 section">
+        <h3 class="text-lg font-bold">Macro distribution</h3>
+        <div class="chart-wrap mt-4"><canvas id="chart1"></canvas></div>
+      </article>
+
+      <article class="card p-6 dashboard-span-4 section">
+        <h3 class="text-lg font-bold">Calories vs target</h3>
+        <div class="chart-wrap mt-4"><canvas id="chart2"></canvas></div>
+      </article>
+
+      <article class="card p-6 dashboard-span-4 section">
+        <h3 class="text-lg font-bold">Nutrition balance radar</h3>
+        <div class="chart-wrap mt-4"><canvas id="chart3"></canvas></div>
+      </article>
+
+      <article class="card p-6 dashboard-span-6 section">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <div>
+            <p class="eyebrow">Recent Meals</p>
+            <h3 class="text-2xl font-bold mt-2">Today's log</h3>
+          </div>
+          <span class="micro-copy" id="mealCountLabel"></span>
+        </div>
+        <hr class="divider">
+        <div id="dashboardHistory" class="list-stack"></div>
+      </article>
+
+      <article class="card p-6 dashboard-span-6 section">
+        <div>
+          <p class="eyebrow">Weekly View</p>
+          <h3 class="text-2xl font-bold mt-2">Last 7 days</h3>
+        </div>
+        <hr class="divider">
+        <div class="chart-wrap mb-5"><canvas id="chart4"></canvas></div>
+        <div id="weeklySummary" class="list-stack"></div>
+      </article>
+
+      <article class="card p-6 dashboard-span-6 section">
+        <div>
+          <p class="eyebrow">Coach Notes</p>
+          <h3 class="text-2xl font-bold mt-2">Smart insights</h3>
+        </div>
+        <hr class="divider">
+        <div id="analysis" class="list-stack"></div>
+      </article>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

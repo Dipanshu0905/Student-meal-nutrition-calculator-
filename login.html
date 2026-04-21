@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | NutriTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="hero">
+  <main class="auth-shell">
+    <section class="card auth-card section">
+      <p class="eyebrow">Welcome Back</p>
+      <h1 class="text-4xl font-bold mt-3">Sign in to your nutrition workspace.</h1>
+      <p class="subheadline mt-4">
+        This project now remembers the current user locally so the tracker, goals, and dashboard stay connected.
+      </p>
+
+      <div class="mt-8 grid gap-4">
+        <label class="inline-field">
+          <span class="font-medium">Email</span>
+          <input type="email" id="email" placeholder="user@gmail.com">
+        </label>
+
+        <label class="inline-field">
+          <span class="font-medium">Password</span>
+          <input type="password" id="password" placeholder="1234">
+        </label>
+      </div>
+
+      <button onclick="login()" class="btn w-full mt-6">Login</button>
+
+      <div class="mt-6 p-4 rounded-2xl" style="background:rgba(255,255,255,0.55); border:1px solid rgba(77,52,40,0.08);">
+        <p class="font-semibold">Demo credentials</p>
+        <p class="micro-copy mt-2">Email: <code>user@gmail.com</code></p>
+        <p class="micro-copy">Password: <code>1234</code></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logout | NutriTrack</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="hero">
+  <main class="logout-shell">
+    <section class="card auth-card section">
+      <p class="eyebrow">Session Control</p>
+      <h1 class="text-4xl font-bold mt-3">Sign out when you’re done.</h1>
+      <p class="subheadline mt-4">Logging out only clears the active user session. Your meal history stays in local storage.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <button onclick="logout()" class="btn-danger">Logout now</button>
+        <a href="index.html" class="btn-ghost">Go back home</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
